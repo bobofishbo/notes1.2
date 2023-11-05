@@ -23,31 +23,35 @@
     <body>
 
     
-    <section class="pyscript">
-        <py-script>
-        from cryptography.fernet import Fernet
-        password = input("")
-        output_location = "file"
-        def encryptCipher(password):
+        <section class="pyscript">
+            <py-script>
+                from cryptography.fernet import Fernet
+                import random
+                
+                password = input("")
+                def xor_encode(text):
+                    encoded = []
+                    encryption_key = random.randint(1, 1000000)
+                    for char in text:
+                        encoded_char = chr((ord(char) ^ encryption_key)%128)
+                        encoded.append(encoded_char)
+                    return ''.join(encoded),  encryption_key
+                
+                def xor_decode(encoded_text, encryption_key):
+                    decoded = []
+                    for char in encoded_text:
+                        decoded_char = chr((ord(char) ^ encryption_key)%128)
+                        decoded.append(decoded_char)
+                    return ''.join(decoded)
+                
+                
+                a, b = xor_encode(password)
+                
 
-            key = Fernet.generate_key()
-            cipher = Fernet(key)
-            plaintext_message = password.encode('utf-8')
-            encrypted_message = cipher.encrypt(plaintext_message)
-            return encrypted_message, cipher
+                print('The encrypted cipher is: ' + str(a) + str(b))
         
-        
-        def decryptCipher(encrypted_message, cipher):
-        
-            decrypted_message = cipher.decrypt(encrypted_message)
-            return decrypted_message
-        
-        m,c = encryptCipher(password)
-        
-        print('The encrypted cipher is: ' + str(encryptCipher(password)))
-        
-        print( 'The decrypted cipher is: ' + str((decryptCipher(m, c)).decode('utf-8')))
-        </py-script>
+                print( 'The decrypted cipher is: ' + str(xor_decode(a, b)))
+            </py-script>
  
 <body style="background-color: rgb(255, 255, 255); text-align: left; margin: 0px;">
     <div class="parentContainer">
