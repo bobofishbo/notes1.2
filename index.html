@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <title>CS Academy</title>
+    <link rel="stylesheet" type="text/css" href="maincss.css">
+    
+</head>
+<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <py-config>
+        plugins = [
+          "https://pyscript.net/latest/plugins/python/py_tutor.py"
+        ]
+        packages = ["cryptography"]
+    </py-config>
+
+    
+    <body>
+
+    
+    <section class="pyscript">
+        <py-script>
+        from cryptography.fernet import Fernet
+        password = input("")
+        output_location = "file"
+        def encryptCipher(password):
+
+            key = Fernet.generate_key()
+            cipher = Fernet(key)
+            plaintext_message = password.encode('utf-8')
+            encrypted_message = cipher.encrypt(plaintext_message)
+            return encrypted_message, cipher
+        
+        
+        def decryptCipher(encrypted_message, cipher):
+        
+            decrypted_message = cipher.decrypt(encrypted_message)
+            return decrypted_message
+        
+        m,c = encryptCipher(password)
+        
+        print('The encrypted cipher is: ' + str(encryptCipher(password)))
+        
+        print( 'The decrypted cipher is: ' + str((decryptCipher(m, c)).decode('utf-8')))
+        </py-script>
+ 
+<body style="background-color: rgb(255, 255, 255); text-align: left; margin: 0px;">
+    <div class="parentContainer">
+        <img src="oNe.jpg" class="top-left" width="1440" height="40" alt="Landscape">
+        <a class="btcDesign" href="https://bobofishbo.github.io/csacademy-units/">Back to course</a>
+    </div>
+
+    <!--sidebar-->
+    <div class="sidebar">
+        <a class="active" href="#home" onclick="showContent('home')" style="font-size: 20px">| Home</a>
+    </div>
+
+    <!-- Page content -->
+
+    <div class="content" id="homeContent">
+        <header>
+            <h1>1.2 xOR</h1>
+            <div class="dotted-line"></div>
+            <p>Welcome to our short demo!<br />
+            <br>
+            For our next lesson, we will be showing off our own implementation of a well known encryption<br /> 
+            function known as xOR. This encryption function converts a plain text string into bits, randomly  <br />
+            generates a key of bits the same length, and creates a cipher by combining the two pieces of bit <br />
+            data using exclusive or. <br />
+            <br>
+            Then the cipher is decrypted with the key to generate the password. <br />
+            <br>
+
+            The instructions are as follows:<br /></p>
+            <p style="text-indent: 20px">
+            1. If the form resubmission appears at the top, type in your password of choice into the </p>
+            <p style="text-indent: 20px">module (else press the reload button at the top)</p>
+            <p style="text-indent: 20px">2. Click OK</p>
+            <p style="text-indent: 20px">3. Then at the bottom of the screen you will see the encoded cipher</p>
+            <p style="text-indent: 20px">text and the decoded plain text
+            </p>
+
+        </header>
+        
+        <a href="https://bobofishbo.github.io/csacademy-units/" target="_blank">
+            <button class="buttonClass">Back to Lessons</button>
+        </a>
+    </div>
+    
+    
+    <script>
+        // Get references to the input field, button, and output paragraph
+        var myText = document.getElementById("myText");
+        var submitBtn = document.getElementById("submitBtn");
+        var output = document.getElementById("output");
+
+        // Add a click event listener to the button
+        submitBtn.addEventListener("click", function() {
+            // Get the value of the input field
+            var inputValue = myText.value;
+
+            // Display the input value and clear the input field
+            output.textContent = "You entered: " + inputValue;
+            myText.value = ""; // Clear the input field
+        });
+    </script>
+
+
+    <script>
+        function showContent(contentId) {
+    // Hide all content elements
+    var contentElements = document.querySelectorAll('.content');
+    contentElements.forEach(function (element) {
+        element.style.display = 'none';
+    });
+
+    // Show the selected content element
+    var selectedContent = document.getElementById(contentId + 'Content');
+    if (selectedContent) {
+        selectedContent.style.display = 'block';
+    }
+
+    // Remove the 'active' class from all menu items
+    var menuItems = document.querySelectorAll('.sidebar a');
+    menuItems.forEach(function (item) {
+        item.classList.remove('active');
+    });
+
+    // Add the 'active' class to the clicked menu item
+    var clickedMenuItem = document.querySelector('.sidebar a[href="#' + contentId + '"]');
+    if (clickedMenuItem) {
+        clickedMenuItem.classList.add('active');
+    }
+}
+
+function nextSection(nextContentId) {
+    // Hide all content elements
+    var contentElements = document.querySelectorAll('.content');
+    contentElements.forEach(function (element) {
+        element.style.display = 'none';
+    });
+
+    // Show the selected content element
+    var selectedContent = document.getElementById(nextContentId + 'Content');
+    if (selectedContent) {
+        selectedContent.style.display = 'block';
+    }
+
+    // Remove the 'active' class from all menu items
+    var menuItems = document.querySelectorAll('.sidebar a');
+    menuItems.forEach(function (item) {
+        item.classList.remove('active');
+    });
+
+    // Add the 'active' class to the clicked menu item
+    var clickedMenuItem = document.querySelector('.sidebar a[href="#' + nextContentId + '"]');
+    if (clickedMenuItem) {
+        clickedMenuItem.classList.add('active');
+    }
+}
+
+
+    </script>
+</body>
+</html>
